@@ -34,6 +34,11 @@ struct ContentView: View {
     @State var enteredText = ""
     @State var idCount = 0
     @State var displayArray = [Item]()
+    @State var saveLoadHidden = true
+    @State var showSavedLists = false
+    @State var lists = [[Item]]()
+    @State var listTitles = [String()]
+    @State var listTitle = ""
     
     let accentColor = Color(Color.RGBColorSpace.sRGB, red: 0.3, green: 0.5, blue: 0.7, opacity: 1.0)
     let textColor = Color(Color.RGBColorSpace.sRGB, red: 0.9, green: 0.9, blue: 0.9, opacity: 1.0)
@@ -52,18 +57,96 @@ struct ContentView: View {
                         .ignoresSafeArea()
                         .background(textColor)
                     
-                    Button("Save/Load") {
-                        saveLoad()
-                    }
-                    .padding(.all, 10.0)
-                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .background(accentColor)
-                    .foregroundColor(textColor)
-                    .font(Font.caption.weight(.heavy))
-                    .cornerRadius(4)
+//                    Button("Save/Load") {
+//                        saveLoad()
+//                    }
+//                    .padding(.all, 10.0)
+//                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                    .background(accentColor)
+//                    .foregroundColor(textColor)
+//                    .font(Font.caption.weight(.heavy))
+//                    .cornerRadius(4)
                     
                 }
                 .padding(.all, 10.0)
+                
+//                if !$saveLoadHidden.wrappedValue {
+//                    ZStack(alignment: .center) {
+//                        VStack {
+//                            Button(action: {
+//                                saveLoad()
+//
+//                                if UserDefaults.standard.array(forKey: "list") != nil {
+//                                    lists = UserDefaults.standard.array(forKey: "list")! as! [[Item]]
+//                                }
+//
+//                            }) {
+//                                Text("Load")
+//                                    .lineLimit(2)
+//                                    .multilineTextAlignment(.center)
+//                                    .frame(width: UIScreen.main.bounds.size.width - 100, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                                    .background(accentColor)
+//                                    .foregroundColor(textColor)
+//                                    .font(Font.caption.weight(.heavy))
+//                                    .cornerRadius(4)
+//                            }
+//
+//
+//                            Button(action: {
+//                                if items.count > 1 {
+//                                    var list = [[Item]]()
+//                                    if UserDefaults.standard.array(forKey: "list") != nil {
+//                                        list = UserDefaults.standard.array(forKey: "list") as! [[Item]]
+//                                    }
+//                                    TextField("Enter title for list", text: $listTitle)
+//                                        .padding(.all, 5.0)
+//                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+//                                        .ignoresSafeArea()
+//                                        .background(textColor)
+//                                    if listTitle != "" {
+//                                        var titles = [String]()
+//                                        if UserDefaults.standard.array(forKey: "title") != nil {
+//                                            titles = UserDefaults.standard.array(forKey: "title") as! [String]
+//                                        }
+//                                        UserDefaults.standard.set(titles, forKey: "title")
+//                                        list.append(items)
+//                                        showSavedLists = false
+//                                        saveLoad()
+//                                    }
+//                                }
+//
+//
+//
+//
+//                            }) {
+//                                Text("Save")
+//                                    .lineLimit(2)
+//                                    .multilineTextAlignment(.center)
+//                                    .frame(width: UIScreen.main.bounds.size.width - 100, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                                    .background(accentColor)
+//                                    .foregroundColor(textColor)
+//                                    .font(Font.caption.weight(.heavy))
+//                                    .cornerRadius(4)
+//                            }
+//
+//
+//                            Button(action: {
+//                                saveLoad()
+//                            }) {
+//                                Text("Close")
+//                                    .lineLimit(2)
+//                                    .multilineTextAlignment(.center)
+//                                    .frame(width: UIScreen.main.bounds.size.width - 100, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                                    .background(accentColor)
+//                                    .foregroundColor(textColor)
+//                                    .font(Font.caption.weight(.heavy))
+//                                    .cornerRadius(4)
+//                            }
+//
+//                        }.padding(10)
+//                    }.padding(.top, 100.0)
+//                    .background(textColor)
+//                }
                 
                 List(items) { item in
                     Text(item.item)
