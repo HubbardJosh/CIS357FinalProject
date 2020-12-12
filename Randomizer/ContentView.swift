@@ -47,15 +47,15 @@ struct ContentView: View {
         
         
         ZStack {
-            textColor
-                .edgesIgnoringSafeArea(.all)
+//            textColor
+//                .edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 10) {
                 HStack() {
                     TextField("Enter text here", text: $enteredText)
                         .padding(.all, 5.0)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .ignoresSafeArea()
-                        .background(textColor)
+//                        .background(textColor)
                     
 //                    Button("Save/Load") {
 //                        saveLoad()
@@ -152,7 +152,7 @@ struct ContentView: View {
                     Text(item.item)
                 }
                 .padding([.bottom, .trailing], 10.0)
-                .background(textColor)
+//                .background(textColor)
                 .listRowBackground(textColor)
                 
                 HStack {
