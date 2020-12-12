@@ -19,6 +19,7 @@ struct ItemRow: View {
     
     var body: some View {
         Text(rowItem.item)
+            .listRowBackground(Color(Color.RGBColorSpace.sRGB, red: 0.9, green: 0.9, blue: 0.9, opacity: 1.0))
     }
 }
 
@@ -34,132 +35,123 @@ struct ContentView: View {
     @State var idCount = 0
     @State var displayArray = [Item]()
     
-    var accentColor = Color(Color.RGBColorSpace.sRGB, red: 0.3, green: 0.5, blue: 0.7, opacity: 1.0)
+    let accentColor = Color(Color.RGBColorSpace.sRGB, red: 0.3, green: 0.5, blue: 0.7, opacity: 1.0)
+    let textColor = Color(Color.RGBColorSpace.sRGB, red: 0.9, green: 0.9, blue: 0.9, opacity: 1.0)
     var body: some View {
-        VStack(alignment: .center, spacing: 15) {
-            HStack() {
-                TextField("Enter text here", text: $enteredText)
-                    .padding(.all, 10.0)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button("Save/Load") {
-                    saveLoad()
-                }
-                .padding(.all, 10.0)
-                .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .background(accentColor)
-                .foregroundColor(Color(UIColor.lightText))
-                .font(.caption)
-                .cornerRadius(4)
-                
-            }
-            .padding(.all, 10.0)
-            
-            List(items) { item in
-                Text(item.item)
-            }
-            .padding([.bottom, .trailing], 10.0)
-            
-            Button("Enter"){
-                if enteredText != "" {
-                    enterButtonAction(addText: self.enteredText)
-                }
-                self.enteredText = ""
-                UIApplication.shared.endEditing()
-            }
-            .padding(.all, 10.0)
-            .frame(width: UIScreen.main.bounds.size.width - 30, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            .background(accentColor)
-            .foregroundColor(Color(UIColor.lightText))
-            .font(.caption)
-            .cornerRadius(4)
-            
-            
-            HStack {
-                Button("Choose") {
-                    choose1ButtonAction()
-                }
-                .padding(.all, 10.0)
-                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .background(accentColor)
-                .foregroundColor(Color(UIColor.lightText))
-                .font(.caption)
-                .cornerRadius(4)
-                
-                Button("Choose x5") {
-                    choose5ButtonAction()
-                }
-                .padding(.all, 10.0)
-                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 50, alignment: .center)
-                .background(accentColor)
-                .foregroundColor(Color(UIColor.lightText))
-                .font(.caption)
-                .cornerRadius(4)
-                
-                Button("Choose x10") {
-                    choose10ButtonAction()
-                }
-                
-                .padding(.all, 10.0)
-                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .background(accentColor)
-                .foregroundColor(Color(UIColor.lightText))
-                .font(.caption)
-                .cornerRadius(4)
-            }
-            
-            
-        }
-        .padding(.bottom, 15.0)
         
+        
+        
+        ZStack {
+            textColor
+                .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 10) {
+                HStack() {
+                    TextField("Enter text here", text: $enteredText)
+                        .padding(.all, 5.0)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .ignoresSafeArea()
+                        .background(textColor)
+                    
+                    Button("Save/Load") {
+                        saveLoad()
+                    }
+                    .padding(.all, 10.0)
+                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .background(accentColor)
+                    .foregroundColor(textColor)
+                    .font(Font.caption.weight(.heavy))
+                    .cornerRadius(4)
+                    
+                }
+                .padding(.all, 10.0)
+                
+                List(items) { item in
+                    Text(item.item)
+                }
+                .padding([.bottom, .trailing], 10.0)
+                .background(textColor)
+                .listRowBackground(textColor)
+                
+                HStack {
+                    Button(action: {            // enter button
+                        if enteredText != "" {
+                            enterButtonAction(addText: self.enteredText)
+                        }
+                        self.enteredText = ""
+                        UIApplication.shared.endEditing()
+                    }) {
+                        Text("Enter")
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .frame(width: UIScreen.main.bounds.size.width - 30, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .background(accentColor)
+                            .foregroundColor(textColor)
+                            .font(Font.caption.weight(.heavy))
+                            .cornerRadius(4)
+                    }
+                }
+                
+                
+                HStack {
+                    HStack {
+                        Button(action: {            // choose 1 button
+                            choose1ButtonAction()
+                        }) {
+                            Text("Choose x1")
+                                .padding(.all, 10.0)
+                                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .background(accentColor)
+                                .foregroundColor(textColor)
+                                .font(Font.caption.weight(.heavy))
+                                .cornerRadius(4)
+                        }
+                    }
+                    HStack {
+                        Button(action: {            // choose 5 button
+                            choose5ButtonAction()
+                        }) {
+                            Text("Choose x5")
+                                .padding(.all, 10.0)
+                                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .background(accentColor)
+                                .foregroundColor(textColor)
+                                .font(Font.caption.weight(.heavy))
+                                .cornerRadius(4)
+                        }
+                    }
+                    HStack {
+                        Button(action: {            // choose 10 button
+                            choose10ButtonAction()
+                        }) {
+                            Text("Choose x10")
+                                .padding(.all, 10.0)
+                                .frame(width: (UIScreen.main.bounds.size.width - 45) / 3.0, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .background(accentColor)
+                                .foregroundColor(textColor)
+                                .font(Font.caption.weight(.heavy))
+                                .cornerRadius(4)
+                        }
+                    }
+                }
+                .padding(.horizontal, 10.0)
+                
+                HStack {
+                    Button(action: {            // choose 10 button
+                        clearButtonAction()
+                    }) {
+                        Text("Clear")
+                            .padding(.all, 10.0)
+                            .frame(width: UIScreen.main.bounds.size.width - 30, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .background(accentColor)
+                            .foregroundColor(textColor)
+                            .font(Font.caption.weight(.heavy))
+                            .cornerRadius(4)
+                    }
+                }
+            }
+        }
     }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//              // textfield and save/load button at top
-//            TextField("Enter text here",
-//                      text: $enteredText,
-//                      onCommit:  {
-//
-//                        items.append(Item(id: 0, item: enteredText, count: 0))
-//
-//                      }
-//            )
-//            .navigationBarItems(trailing:
-//                                    List(items) { i in
-//                                        ItemRow(rowItem: i)
-//                                    }
-//            )
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .padding(10)
-//
-//            Button("Save/Load", action: {saveLoad()})
-//          }
-//          VStack() {
-//              // tableview and label above enter button
-//
-//
-//          }
-//          VStack() {
-//              // enter button
-////            Button ("Enter", action: {enterButtonAction()})
-//              HStack() {
-//                  // choose buttons
-//                Button ("Choose x1", action: {choose1ButtonAction()})
-//                Button ("Choose x5", action: {choose5ButtonAction()})
-//                Button ("Choose x10", action: {choose10ButtonAction()})
-//              }
-//              // clear button
-//            Button ("Clear", action: {clearButtonAction()})
-//          }
-//      }
+    
     
     func restoreArrayValues(list: [Item]) {
         items = list
@@ -193,15 +185,27 @@ struct ContentView: View {
             }
             
             for item in 0..<items.count {
-                items[item].item = "\(items[item].item): \(items[item].count)"
+                items[item].item = "\(items[item].item): Chosen \(items[item].count) times"
             }
-//            print(items.randomElement()!)
         }
         
     }
     func choose10ButtonAction() {
         if items.count > 0 {
-            print(items.randomElement()!)
+            items = displayArray
+            var chosenItem = items.randomElement()
+            for _ in 0..<10 {
+                chosenItem = items.randomElement()
+                for x in 0..<items.count {
+                    if chosenItem?.item == items[x].item {
+                        items[x].count += 1
+                    }
+                }
+            }
+            
+            for item in 0..<items.count {
+                items[item].item = "\(items[item].item): Chosen \(items[item].count) times"
+            }
         }
         
     }
